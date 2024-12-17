@@ -1,14 +1,26 @@
-from datetime import datetime, timedelta
-from flask import Flask, render_template, request, redirect
 from redis import StrictRedis
+from flask import Flask, render_template, request, redirect
+from datetime import datetime, timedelta
 import random
 
-r = StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
+# Hardcode Redis connection settings
+REDIS_HOST = 'localhost'  # Change to your Redis server host
+REDIS_PORT = 6379  # Redis default port, change if necessary
+REDIS_PASSWORD = ''  # Provide password if required
+REDIS_SSL = False  # Set to True if Redis requires SSL (e.g., Azure Redis)
+
+# Set up Redis connection with hardcoded settings
+r = StrictRedis(
+    host=REDIS_HOST,
+    port=REDIS_PORT,
+    password=REDIS_PASSWORD if REDIS_PASSWORD else None,
+    ssl=REDIS_SSL,
+    decode_responses=True
+)
 
 app = Flask(__name__)
 
 valid_teams = ["bob", "jerry", "smith"]
-
 BLOCK_TIME = 5  # Time in seconds for the block (5 seconds for testing)
 
 @app.route("/<teamname>/plus1")
@@ -37,6 +49,7 @@ def fiftypoint(teamname):
     if expected_secret is None or int(expected_secret) != int(provided_secret):
         r.set(f"secret:{teamname}", new_secret)
         return redirect("/")
+
     r.set(f"secret:{teamname}", new_secret)
     if teamname in valid_teams:
         r.incrby(f"score:{teamname}", 50)
