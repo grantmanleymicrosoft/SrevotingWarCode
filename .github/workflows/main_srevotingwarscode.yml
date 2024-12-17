@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'SreVotingWarsCode'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DE964E2B5FE843E79AF012A7925EED11 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_643A3789B97944969646244BA10BA61E }}
