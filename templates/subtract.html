@@ -1,0 +1,98 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Voting Wars</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/carousel.css" rel="stylesheet">
+
+    <script>
+      function sleep(millis, callback) {
+         setTimeout(function()
+            { callback(); }
+        , millis);
+      }
+
+    	window.onload = function()
+      {
+  			$('#hide').hide();
+        console.debug("Hiding div");
+  			sleep(5000, function() { 
+  			  $('#hide').show();
+          console.debug("showing div");
+        });
+
+        $('#hide2').hide();
+        sleep(10000, function() { 
+        console.debug("Showing div");
+          $('#hide2').show();
+        });
+
+      }
+    </script>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Voting Wars: Vote your team to the top!</a>
+            </div>
+            <div class=""> 
+          </div>
+        </div>
+
+	      </div>
+
+	 <div align="center" class="container marketing">
+	 	<div class="row">
+			     
+			<h4>
+			 Voting for {{TEAMNAME}}
+				<br/>
+				<a href="/{{ TEAMNAME }}/minus1">Subtract One Point</a><br/>
+				<div id="hide"> <a id="hide" href="/{{ TEAMNAME }}/plus5">Add 5 Points.</a> <br/> </div>
+				<div id="hide2"> <a id="hide2" href="/{{ TEAMNAME }}/plus50?secret={{
+SECRET }}">Add 50 Points.</a> <br/> </div>
+  			</h4>
+		</div>
+
+    </div>
+
+    <div align="center">
+      <!-- FOOTER -->
+      <footer>
+      
+        <p>&copy; 2014 Voting Wars, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+  </body>
+</html>

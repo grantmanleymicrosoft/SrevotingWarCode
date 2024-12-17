@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Voting Wars</title>
+
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/carousel.css" rel="stylesheet">
+    <style>
+      .unblock-div {
+        display: none; /* Hidden by default */
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Voting Wars: Vote your team to the top!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div align="center" class="container marketing">
+      <div class="row">
+        <h3>Click your team to the top:</h3>
+        <br />
+        {% for team in TEAMS %}
+          <div class="col-md-4 team-box">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h4>{{ team.name }}</h4>
+                <p>Score: {{ team.score }}</p>
+                <div class="buttons">
+                  <a href="/{{ team.name }}/votefor">
+                    <input type="submit" class="btn btn-lg btn-success" name="vote" value="Upvote {{ team.name }}">
+                  </a>
+                  <a href="/{{ team.name }}/subtractfor" class="btn btn-danger btn-lg">Downvote</a>
+                  <a href="/{{ team.name }}/Block" class="btn btn-warning btn-lg">Block</a>
+                </div>
+
+                <!-- Show blocked message if the team is blocked and the remaining time is between 1 and 60 seconds -->
+                {% if team.name in BLOCKED_TEAMS %}
+                  {% if BLOCKED_TEAMS[team.name] > 0 and BLOCKED_TEAMS[team.name] <= 60 %}
+                    <p>Blocked! {{ BLOCKED_TEAMS[team.name] }} seconds remaining.</p>
+                    
+                    <!-- Show unblock button and hidden div -->
+                    <button class="btn btn-info btn-lg" onclick="toggleUnblock('{{ team.name }}')">Unblock {{ team.name }}</button>
+                    <div id="unblock-{{ team.name }}" class="unblock-div">
+                      <a href="/unblock" class="btn btn-success">Click to Unblock</a>
+                    </div>
+                  {% else %}
+                    <p>Free to vote!</p>
+                  {% endif %}
+                {% else %}
+                  <p>Free to vote!</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+    
+    <!-- Add the script to toggle the unblock div visibility -->
+    <script>
+      function toggleUnblock(teamName) {
+        var unblockDiv = document.getElementById("unblock-" + teamName);
+        if (unblockDiv.style.display === "none") {
+          unblockDiv.style.display = "block";
+        } else {
+          unblockDiv.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
