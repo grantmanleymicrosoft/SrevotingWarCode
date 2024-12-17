@@ -11,11 +11,10 @@ REDIS_SSL = False  # Set to True if Redis requires SSL (e.g., Azure Redis)
 
 # Set up Redis connection with hardcoded settings
 r = StrictRedis(
-    host=REDIS_HOST,
-    port=REDIS_PORT,
-    password=REDIS_PASSWORD if REDIS_PASSWORD else None,
-    ssl=REDIS_SSL,
-    decode_responses=True
+    host='manleytestapp-cache.redis.cache.windows.net',
+    port=6380,
+    password='1JlboCFjYtRqWV3DYogrPdzf0msYGOjPcAzCaIF3h6U=',
+    ssl=True
 )
 
 app = Flask(__name__)
